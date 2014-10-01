@@ -28,7 +28,6 @@ class TweetDetailsButtonsCell: UITableViewCell, RetweetedTweetsDelegate {
     let twitterClient = TwitterClient()
     
     @IBAction func replyButton(sender: UIButton) {
-        println("Reply Clicked")
     }
 
     @IBAction func retweetButton(sender: UIButton) {

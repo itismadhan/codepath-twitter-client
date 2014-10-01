@@ -178,9 +178,10 @@ class TwitterClient: NSObject {
             (success, error) in
             if(success) {
                 let accounts = self.accountStore.accountsWithAccountType(accountType)
-                let url:NSURL = NSURL(string: "https://api.twitter.com/1.1/statuses/update.json?status=\(tweet)")
-                
-                let authRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.POST, URL: url, parameters: nil)
+                let url:NSURL = NSURL(string: "https://api.twitter.com/1.1/statuses/update.json")
+                let tweetParams:NSMutableDictionary = NSMutableDictionary()
+                tweetParams.setValue(tweet, forKeyPath: "status")
+                let authRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.POST, URL: url, parameters: tweetParams)
                 authRequest.account = accounts[0] as ACAccount
                 
                 let request = authRequest.preparedURLRequest()
