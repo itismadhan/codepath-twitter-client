@@ -9,3 +9,8 @@ Project Requirements
 * [x] Required:  User can compose a new tweet by tapping on a compose button.
 * [x] Required:  User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
 
+Other Libraries Used:
+* [AFNetworking](https://github.com/AFNetworking/AFNetworking)
+* [PrettyTimestamp](https://github.com/jonhocking/PrettyTimestamp)
+
+GIF WalkThrough:
