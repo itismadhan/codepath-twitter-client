@@ -1,5 +1,7 @@
 Basic Twitter Client
 =======================
+Time to complete: 8-10 hrs
+
 Project Requirements
 * [x] Required:  User can sign in using OAuth login flow (Social Framework)
 * [x] Required:  User can view last 20 tweets from their home timeline
