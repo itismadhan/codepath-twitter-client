@@ -14,3 +14,5 @@ Other Libraries Used:
 * [PrettyTimestamp](https://github.com/jonhocking/PrettyTimestamp)
 
 GIF WalkThrough:
+
+<a href="http://imgur.com/R8ATwLU"><img src="http://i.imgur.com/R8ATwLU.gif" title="Hosted by imgur.com" /></a>
