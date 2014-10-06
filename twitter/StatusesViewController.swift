@@ -10,22 +10,47 @@ import UIKit
 import Social
 import Accounts
 
+enum TwitterView {
+    case HomeTimeline
+    case Mentions
+    case UserProfile
+}
+
 protocol TweetsDelegate {
-    func setUser(user:User)
     func setTweets(tweets:[Tweet])
 }
 
-class StatusesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetsDelegate {
-    var urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+protocol ImageTappedDelegate {
+    func pushUserProfileView(user:User)
+}
+
+class StatusesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetsDelegate, ImageTappedDelegate {
     var statuses:[Tweet]?
     var user:User?
     var refreshControl:UIRefreshControl?
-    var twitterClient = TwitterClient()
+    var showTimeLine:Bool!
+    var showBannerImage:Bool!
+    let twitterClient = TwitterClient()
+    var viewType:TwitterView = .HomeTimeline
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        switch(viewType) {
+        case .HomeTimeline:
+            twitterClient.getTweets()
+        case .Mentions:
+            twitterClient.getMentions()
+        case .UserProfile:
+            twitterClient.getUserTimeLine(self.user!)
+        }
+        if showBannerImage! && self.user!.profileBannerUrl != nil{
+            let imageView:UIImageView = UIImageView(frame: CGRectMake(0, 0, self.tableView.frame.width, 100))
+            imageView.setImageWithURL(NSURL(string: self.user!.profileBannerUrl))
+            self.tableView.tableHeaderView = imageView
+        }
+        self.edgesForExtendedLayout = UIRectEdge.None
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 144
@@ -35,23 +60,27 @@ class StatusesViewController: UIViewController, UITableViewDataSource, UITableVi
         self.refreshControl?.addTarget(self, action: "refreshTweets:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(self.refreshControl!)
         
-        self.navigationItem.title = "Timeline"
-        
         let tweetButton = UIBarButtonItem(title: "Tweet", style: UIBarButtonItemStyle.Bordered, target: self, action: "composeTweetAction:")
         self.navigationItem.rightBarButtonItem = tweetButton
         
         let statusCellNib:UINib = UINib(nibName: "StatusCell", bundle: nil)
         self.tableView.registerNib(statusCellNib, forCellReuseIdentifier: "StatusCell")
         
-        
         twitterClient.tweetsDelegate = self
     }
     
     func refreshTweets(sender:AnyObject)
     {
-        twitterClient.getTweets()
-        self.tableView.reloadData()
+        switch(viewType) {
+        case .HomeTimeline:
+            twitterClient.getTweets()
+        case .Mentions:
+            twitterClient.getMentions()
+        case .UserProfile:
+            twitterClient.getUserTimeLine(self.user!)
+        }
         self.refreshControl!.endRefreshing()
+        self.tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -66,6 +95,8 @@ class StatusesViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.userNameLabel.text = tweet.user?.name
         cell.timeStampLabel.text = tweet.createdAtString
         cell.avatarImageView.setImageWithURL(tweet.user?.profileImageUrl)
+        cell.imageTappedDelegate = self
+        cell.tweet = tweet
         var cellBGColorView = UIView()
         cellBGColorView.backgroundColor = UIColorHelper.uicolorFromHex(0x55ACEE)
         cell.selectedBackgroundView = cellBGColorView
@@ -90,9 +121,6 @@ class StatusesViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.pushViewController(tweetDetailsVC, animated: true)
     }
     
-    func setUser(user: User) {
-        self.user = user
-    }
     
     func setTweets(tweets:[Tweet]) {
         dispatch_async(dispatch_get_main_queue(), {
@@ -108,4 +136,12 @@ class StatusesViewController: UIViewController, UITableViewDataSource, UITableVi
         self.presentViewController(navVC, animated: true, completion: nil)
     }
     
+    func pushUserProfileView(user:User) {
+        let userProfileVC:StatusesViewController = StatusesViewController(nibName: "StatusesViewController", bundle: nil)
+        userProfileVC.showBannerImage = true
+        userProfileVC.user = user
+        userProfileVC.navigationItem.title = "Profile"
+        userProfileVC.viewType = .UserProfile
+        self.navigationController?.pushViewController(userProfileVC, animated: true)
+    }
 }

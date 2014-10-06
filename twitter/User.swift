@@ -10,15 +10,17 @@ import UIKit
 
 class User: NSObject {
     var name: String?
-    var screenName: String?
+    var screenName: String!
     var profileImageUrl: NSURL?
     var tagLine: String?
     var dictionary:NSDictionary?
+    var profileBannerUrl:String!
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
         name = dictionary["name"] as? String
-        screenName = dictionary["screen_name"] as? String
+        screenName = dictionary["screen_name"] as String!
+        profileBannerUrl = dictionary["profile_banner_url"] as String!
         profileImageUrl = NSURL(string: (dictionary["profile_image_url"] as String!))
         tagLine = dictionary["description"] as? String
     }

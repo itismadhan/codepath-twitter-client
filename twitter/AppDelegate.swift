@@ -13,19 +13,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        var statusesNavigationVC: StatusesNavigationController = StatusesNavigationController()
-        var statusesVC:StatusesViewController = StatusesViewController(nibName: "StatusesViewController", bundle: nil)
-        
-        statusesNavigationVC.pushViewController(statusesVC, animated: false)
-        
+        var containerVC:ContainerViewController = ContainerViewController(nibName: "ContainerViewController", bundle: nil)
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window!.rootViewController = statusesNavigationVC
+        self.window!.rootViewController = containerVC
         self.window!.backgroundColor = UIColor.whiteColor()
         self.window!.makeKeyAndVisible()
-        
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         return true
     }

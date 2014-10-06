@@ -18,6 +18,7 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Hyu-NV-wMX">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="XYy-bV-p0F"/>
@@ -26,11 +27,12 @@
             </subviews>
             <color key="backgroundColor" red="0.23529413342475891" green="0.23529413342475891" blue="0.23529413342475891" alpha="1" colorSpace="deviceRGB"/>
             <color key="tintColor" red="0.40000000596046448" green="0.80000001192092896" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="Hyu-NV-wMX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="VOt-jH-dmG"/>
-                <constraint firstItem="Hyu-NV-wMX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ioi-gL-YxE"/>
-                <constraint firstAttribute="trailing" secondItem="Hyu-NV-wMX" secondAttribute="trailing" id="kSd-Em-5ON"/>
-                <constraint firstAttribute="bottom" secondItem="Hyu-NV-wMX" secondAttribute="bottom" id="xAe-AC-F6e"/>
+                <constraint firstItem="Hyu-NV-wMX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="G9w-Hr-ehQ"/>
+                <constraint firstItem="Hyu-NV-wMX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Qg0-MY-wFo"/>
+                <constraint firstAttribute="trailing" secondItem="Hyu-NV-wMX" secondAttribute="trailing" id="fAY-Kg-6LU"/>
+                <constraint firstAttribute="bottom" secondItem="Hyu-NV-wMX" secondAttribute="bottom" id="twj-4g-plO"/>
             </constraints>
         </view>
     </objects>

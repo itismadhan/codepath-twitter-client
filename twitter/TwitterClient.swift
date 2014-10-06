@@ -14,14 +14,13 @@ import Accounts
 class TwitterClient: NSObject {
     var tweet:Tweet?
     var tweetsDelegate:TweetsDelegate?
+    var userDelegate:UserDelegate?
     var retweetedTweetsDelegate:RetweetedTweetsDelegate?
     var urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     let accountStore = ACAccountStore()
     
     override init() {
         super.init()
-        self.login()
-        self.getTweets()
     }
     
     func login() -> Void {
@@ -42,7 +41,7 @@ class TwitterClient: NSObject {
                     } else {
                         let dict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
                         var user = User(dictionary: dict)
-                        self.tweetsDelegate?.setUser(user)
+                        self.userDelegate?.setUser(user)
                     }
                 })
                 task.resume()
@@ -59,6 +58,62 @@ class TwitterClient: NSObject {
             if(success) {
                 let accounts = self.accountStore.accountsWithAccountType(accountType)
                 let url = NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json")
+                let authRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
+                authRequest.account = accounts[0] as ACAccount
+                
+                let request = authRequest.preparedURLRequest()
+                let task = self.urlSession.dataTaskWithRequest(request, completionHandler: {
+                    (data, response, error) in
+                    if error != nil {
+                        println("Error in timeline")
+                    } else {
+                        let array:[NSDictionary] = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [NSDictionary]
+                        var tweets = Tweet.tweetsWithArray(array)
+                        self.tweetsDelegate?.setTweets(tweets)
+                    }
+                })
+                task.resume()
+            } else {
+                println("Error \(error)")
+            }
+        }
+    }
+    
+    func getUserTimeLine(user:User) -> Void {
+        let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
+        accountStore.requestAccessToAccountsWithType(accountType, options: nil) {
+            (success, error) in
+            if(success) {
+                let accounts = self.accountStore.accountsWithAccountType(accountType)
+                let url = NSURL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=\(user.screenName)")
+                let authRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
+                authRequest.account = accounts[0] as ACAccount
+                
+                let request = authRequest.preparedURLRequest()
+                let task = self.urlSession.dataTaskWithRequest(request, completionHandler: {
+                    (data, response, error) in
+                    if error != nil {
+                        println("Error in timeline")
+                    } else {
+                        let array:[NSDictionary] = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [NSDictionary]
+                        var tweets = Tweet.tweetsWithArray(array)
+                        self.tweetsDelegate?.setTweets(tweets)
+                    }
+                })
+                task.resume()
+            } else {
+                println("Error \(error)")
+            }
+        }
+    }
+    
+    func getMentions() -> Void {
+        let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
+        accountStore.requestAccessToAccountsWithType(accountType, options: nil) {
+            (success, error) in
+            if(success) {
+                let accounts = self.accountStore.accountsWithAccountType(accountType)
+                let url = NSURL(string: "https://api.twitter.com/1.1/statuses/mentions_timeline.json")
                 let authRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: url, parameters: nil)
                 authRequest.account = accounts[0] as ACAccount
                 
