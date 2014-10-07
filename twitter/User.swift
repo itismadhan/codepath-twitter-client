@@ -15,6 +15,9 @@ class User: NSObject {
     var tagLine: String?
     var dictionary:NSDictionary?
     var profileBannerUrl:String!
+    var statusesCount:Int!
+    var followersCount:Int!
+    var friendsCount:Int!
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -23,6 +26,9 @@ class User: NSObject {
         profileBannerUrl = dictionary["profile_banner_url"] as String!
         profileImageUrl = NSURL(string: (dictionary["profile_image_url"] as String!))
         tagLine = dictionary["description"] as? String
+        statusesCount = dictionary["statuses_count"] as? Int!
+        followersCount = dictionary["followers_count"] as? Int!
+        friendsCount = dictionary["friends_count"] as? Int!
     }
     
 }

@@ -66,6 +66,9 @@ class StatusesViewController: UIViewController, UITableViewDataSource, UITableVi
         let statusCellNib:UINib = UINib(nibName: "StatusCell", bundle: nil)
         self.tableView.registerNib(statusCellNib, forCellReuseIdentifier: "StatusCell")
         
+        let userProfileMetaDataCellNib:UINib = UINib(nibName: "UserProfileMetaDataCell", bundle: nil)
+        self.tableView.registerNib(userProfileMetaDataCellNib, forCellReuseIdentifier: "UserProfileMetaDataCell")
+        
         twitterClient.tweetsDelegate = self
     }
     
@@ -89,6 +92,17 @@ class StatusesViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if(self.viewType == .UserProfile) {
+            if(indexPath.section == 0) {
+                var cell:UserProfileMetaDataCell = self.tableView.dequeueReusableCellWithIdentifier("UserProfileMetaDataCell") as UserProfileMetaDataCell
+                cell.tweetsLabel.text = String(self.user!.statusesCount!)
+                cell.followersLabel.text = String(self.user!.followersCount!)
+                cell.followingLabel.text = String(self.user!.friendsCount!)
+                cell.userInteractionEnabled = false
+                cell.layoutMargins = UIEdgeInsetsZero
+                return cell
+            }
+        }
         var cell:StatusCell = self.tableView.dequeueReusableCellWithIdentifier("StatusCell") as StatusCell
         let tweet = self.statuses![indexPath.row] as Tweet
         cell.statusLabel.text = tweet.text
@@ -108,7 +122,15 @@ class StatusesViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(self.statuses != nil) {
-            return self.statuses!.count
+            if self.viewType != .UserProfile {
+                return self.statuses!.count
+            } else {
+                if(section == 0){
+                    return 1
+                } else {
+                    return self.statuses!.count
+                }
+            }
         } else {
             return 0
         }
@@ -121,6 +143,13 @@ class StatusesViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.pushViewController(tweetDetailsVC, animated: true)
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if self.viewType == .UserProfile {
+            return 2
+        } else {
+            return 1
+        }
+    }
     
     func setTweets(tweets:[Tweet]) {
         dispatch_async(dispatch_get_main_queue(), {

@@ -11,6 +11,8 @@
 		5A7C1C5319E1BC000058EE08 /* ContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A7C1C5119E1BC000058EE08 /* ContainerViewController.xib */; };
 		5A7C1C5719E21C660058EE08 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7C1C5519E21C660058EE08 /* UserProfileViewController.swift */; };
 		5A7C1C5819E21C660058EE08 /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A7C1C5619E21C660058EE08 /* UserProfileViewController.xib */; };
+		5A85D89619E44A37005BEC96 /* UserProfileMetaDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A85D89419E44A37005BEC96 /* UserProfileMetaDataCell.swift */; };
+		5A85D89719E44A37005BEC96 /* UserProfileMetaDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A85D89519E44A37005BEC96 /* UserProfileMetaDataCell.xib */; };
 		5A91C5CE19D9B26000A0BEC8 /* TweetDetailsButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91C5CC19D9B26000A0BEC8 /* TweetDetailsButtonsCell.swift */; };
 		5A91C5CF19D9B26000A0BEC8 /* TweetDetailsButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A91C5CD19D9B26000A0BEC8 /* TweetDetailsButtonsCell.xib */; };
 		5A91C5D119D9E62A00A0BEC8 /* RetweetedStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91C5D019D9E62A00A0BEC8 /* RetweetedStatus.swift */; };
@@ -57,6 +59,8 @@
 		5A7C1C5119E1BC000058EE08 /* ContainerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContainerViewController.xib; sourceTree = "<group>"; };
 		5A7C1C5519E21C660058EE08 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		5A7C1C5619E21C660058EE08 /* UserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
+		5A85D89419E44A37005BEC96 /* UserProfileMetaDataCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileMetaDataCell.swift; sourceTree = "<group>"; };
+		5A85D89519E44A37005BEC96 /* UserProfileMetaDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileMetaDataCell.xib; sourceTree = "<group>"; };
 		5A91C5CC19D9B26000A0BEC8 /* TweetDetailsButtonsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweetDetailsButtonsCell.swift; path = twitter/TweetDetailsButtonsCell.swift; sourceTree = "<group>"; };
 		5A91C5CD19D9B26000A0BEC8 /* TweetDetailsButtonsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TweetDetailsButtonsCell.xib; path = twitter/TweetDetailsButtonsCell.xib; sourceTree = "<group>"; };
 		5A91C5D019D9E62A00A0BEC8 /* RetweetedStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetweetedStatus.swift; sourceTree = "<group>"; };
@@ -135,6 +139,8 @@
 			children = (
 				5A7C1C5519E21C660058EE08 /* UserProfileViewController.swift */,
 				5A7C1C5619E21C660058EE08 /* UserProfileViewController.xib */,
+				5A85D89419E44A37005BEC96 /* UserProfileMetaDataCell.swift */,
+				5A85D89519E44A37005BEC96 /* UserProfileMetaDataCell.xib */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -360,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AA5EC9719D4C60F000D0723 /* LaunchScreen.xib in Resources */,
+				5A85D89719E44A37005BEC96 /* UserProfileMetaDataCell.xib in Resources */,
 				5A7C1C5819E21C660058EE08 /* UserProfileViewController.xib in Resources */,
 				5A91C60D19DB225400A0BEC8 /* ComposeViewController.xib in Resources */,
 				5AA5ECB419D5D70B000D0723 /* StatusesViewController.xib in Resources */,
@@ -433,6 +440,7 @@
 				5AA5ECCC19D7AE4D000D0723 /* TweetDetailsViewController.swift in Sources */,
 				5AA5ECB319D5D70B000D0723 /* StatusesViewController.swift in Sources */,
 				5AA5ECC919D7884C000D0723 /* UIColorHelper.swift in Sources */,
+				5A85D89619E44A37005BEC96 /* UserProfileMetaDataCell.swift in Sources */,
 				5AA5ECBA19D5DB9A000D0723 /* StatusCell.swift in Sources */,
 				5AA5ECC319D75BCD000D0723 /* User.swift in Sources */,
 				5A91C60C19DB225400A0BEC8 /* ComposeViewController.swift in Sources */,
